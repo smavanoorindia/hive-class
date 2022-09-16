@@ -1,0 +1,61 @@
+create table csv_table(name string , location string)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+with SERDEPROPERTIES(
+"separatorChar" = ",")
+stored as textfile
+;
+
+
+
+name,location
+Amit, "BBSR,India"
+Sumit, "MUM,India"
+
+
+
+DDING JAR FOR JsonSerDe
+--------------------------------------------------------------------------------
+
+ADD JAR /home/cloudera/data/hive-hcatalog-core-0.14.0.jar;
+
+--------------------------------------------------------------------------------
+CREATING TABLE USING JsonSerDe
+--------------------------------------------------------------------------------
+
+CREATE TABLE json_table(name string, id bigint, skills array<string>)
+ROW FORMAT SERDE 'org.apache.hive.hcatalog.data.JsonSerDe'
+STORED AS TEXTFILE;
+
+--------------------------------------------------------------------------------
+Sample JSON File
+--------------------------------------------------------------------------------
+
+vi json_file.json
+
+java script object notation
+
+{"name":"Amit", "id":1, "skills":["Hadoop", "Python"]}
+{"name":"Sumit", "id":2, "skills":["Hadoop", "Hive"]}
+{"name":"Rohit", "id":3, "skills":["Oozie", "Python"]}
+
+
+
+
+CREATE TABLE userlog(
+    >  host string,
+    >  user_name string,
+    >  domain string
+    >  )
+    >  ROW FORMAT SERDE
+    >  'org.apache.hadoop.hive.contrib.serde2.RegexSerDe'
+    >  WITH SERDEPROPERTIES(
+    >  'input.regex' = '(.*)/(.*)@(.*)',
+    >  'output.format.string' = '%1$s %2$s %3$s ');
+    
+    
+    
+    
+host1/  amit     @    gmail.lfldks
+host2/  sumit    @    facebook(shdfh
+host3/  raghav   @    gmail&fdsh
+host4/  rohit    @    gmail
