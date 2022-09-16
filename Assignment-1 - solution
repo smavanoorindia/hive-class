@@ -77,7 +77,7 @@ DEALSIZE string
 )
 stored as orc;
 
-6. Load data from "sales_order_csv_v1" into "sales_order_orc"
+6. Load data from "sales_order_data_csv_v1" into "sales_order_data_orc"
 insert overwrite table sales_order_data_orc select * from sales_order_data_csv_v1;
 
 Perform below menioned queries on "sales_order_data_orc" table :
