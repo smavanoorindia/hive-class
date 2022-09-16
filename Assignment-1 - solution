@@ -50,7 +50,7 @@ tblproperties("skip.header.line.count"="1")
 4. Load data from hdfs path into "sales_order_csv_v1" 
 load data inpath 'sales/sales_order_data.csv' into table sales_order_data_csv_v1;
 
-5. Create an internal hive table which will store data in ORC format "sales_order_orc"
+5. Create an internal hive table which will store data in ORC format "sales_order_dat_orc"
 create table sales_order_data_orc
 (
 ORDERNUMBER int,
