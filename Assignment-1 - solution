@@ -10,7 +10,7 @@ type the below command at the $ prompt:
 hadoop fs -put /home/cloudera/sales_order_data.csv /sales
 hadoop fs -ls /sales/ 
 
-3. Create a internal hive table "sales_order_csv" which will store csv data sales_order_csv .. make sure to skip header row while creating table
+3. Create a internal hive table "sales_order_csv_v1" which will store csv data sales_order_csv .. make sure to skip header row while creating table
 Ans: go to hive prompt and type the below to use the correct hive database created earlier
 use hive_class_b1;
 show tables;
@@ -47,15 +47,38 @@ tblproperties("skip.header.line.count"="1")
 ; 
 
 # load sales_order_data.csv data into above mentioned tables
-
-load 
-
-4. Load data from hdfs path into "sales_order_csv" 
+4. Load data from hdfs path into "sales_order_csv_v1" 
+load data inpath 'sales/sales_order_data.csv' into table sales_order_data_csv_v1;
 
 5. Create an internal hive table which will store data in ORC format "sales_order_orc"
+create table sales_order_data_orc
+(
+ORDERNUMBER int,
+QUANTITYORDERED int,
+PRICEEACH float,
+ORDERLINENUMBER int,
+SALES float,
+STATUS string,
+QTR_ID int,
+MONTH_ID int,
+YEAR_ID int,
+PRODUCTLINE string,
+MSRP int,
+PRODUCTCODE string,
+PHONE string,
+CITY string,
+STATE string,
+POSTALCODE string,
+COUNTRY string,
+TERRITORY string,
+CONTACTLASTNAME string,
+CONTACTFIRSTNAME string,
+DEALSIZE string
+)
+stored as orc;
 
-6. Load data from "sales_order_csv" into "sales_order_orc"
-
+6. Load data from "sales_order_csv_v1" into "sales_order_orc"
+insert overwrite table sales_order_orc select * from sales_order_data_csv_v1;
 
 Perform below menioned queries on "sales_order_orc" table :
 
@@ -66,3 +89,6 @@ d. In which quarter sales was minimum
 e. In which country sales was maximum and in which country sales was minimum
 f. Calculate quartelry sales for each city
 h. Find a month for each year in which maximum number of quantities were sold
+
+
+
