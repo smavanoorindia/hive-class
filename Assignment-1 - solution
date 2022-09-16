@@ -46,11 +46,12 @@ fields terminated by ','
 tblproperties("skip.header.line.count"="1")
 ; 
 
-# load sales_order_data.csv data into above mentioned tables
 4. Load data from hdfs path into "sales_order_csv_v1" 
+Ans: # load sales_order_data.csv data into above mentioned tables
 load data inpath 'sales/sales_order_data.csv' into table sales_order_data_csv_v1;
 
 5. Create an internal hive table which will store data in ORC format "sales_order_dat_orc"
+Ans:
 create table sales_order_data_orc
 (
 ORDERNUMBER int,
@@ -78,12 +79,31 @@ DEALSIZE string
 stored as orc;
 
 6. Load data from "sales_order_data_csv_v1" into "sales_order_data_orc"
+Ans:
 insert overwrite table sales_order_data_orc select * from sales_order_data_csv_v1;
 
 Perform below menioned queries on "sales_order_data_orc" table :
 
 a. Calculatye total sales per year
+Ans: select year_id, sum(sales) as total_sales from sales_order_data_orc group by year_id; 
+year_id	total_sales
+2003	3516979.547241211
+2004	4724162.593383789
+2005	1791486.7086791992
+
 b. Find a product for which maximum orders were placed
+Ans:
+select productline, sum(quantityordered) as Quantity_Ordered from sales_order_data_orc group by productline order by quantity_ordered desc;
+
+productline	quantity_ordered
+Classic Cars	33992
+Vintage Cars	21069
+Motorcycles	11663
+Trucks and Buses	10777
+Planes	10727
+Ships	8127
+Trains	2712
+
 c. Calculate the total sales for each quarter
 d. In which quarter sales was minimum
 e. In which country sales was maximum and in which country sales was minimum
