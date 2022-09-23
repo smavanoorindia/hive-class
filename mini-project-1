@@ -38,14 +38,92 @@ hive> select agent as name from agentlogingreport group by agent  union ALL  sel
 Time taken: 83.997 seconds, Fetched: 119 row(s)
 
 4. Find out agent average rating.
+Ans:
+hive> select avg(average_rating) as overall_avg_rating from agentperformance;
+overall_avg_rating
+1.3148148148148149
+
 5. Total working days for each agents 
+Ans:
+hive> select agent_name, count(date) as no_of_working days from agentperformance group by agent_name limit 5;
+agent_name	no_of_working_days
+Abhishek 	30
+Aditya 	30
+Aditya Shinde	30
+Aditya_iot 	30
+Amersh 	30
+Time taken: 35.189 seconds, Fetched: 5 row(s)
+
 6. Total query that each agent have taken 
+Ans:
+hive> select agent_name, sum(total_chats) as Total_query from agentperformance group by agent_name limit 5;
+agent_name	total_query
+Abhishek 	0
+Aditya 	0
+Aditya Shinde	277
+Aditya_iot 	231
+Amersh 	0
+Time taken: 31.922 seconds, Fetched: 5 row(s)
+
 7. Total Feedback that each agent have received 
+Ans:
+hive> select agent_name, sum(total_feedback) as Total_feedback from agentperformance group by agent_name limit 5;
+agent_name	total_feedback
+Abhishek 	0
+Aditya 	0
+Aditya Shinde	153
+Aditya_iot 	131
+Amersh 	0
+Time taken: 30.765 seconds, Fetched: 5 row(s)
+hive> 
+
 8. Agent name who have average rating between 3.5 to 4 
+Ans:
+ select agent_name, average_rating from agentperformance where average_rating between 3.5 and 4 limit 5;
+agent_name	average_rating
+Prerna Singh	4
+Ameya Jain	4
+Mahesh Sarade	4
+Mukesh 	4
+Shubham Sharma	4
+Time taken: 0.052 seconds, Fetched: 5 row(s)
+
 9. Agent name who have rating less than 3.5 
+Ans: 
+hive> select agent_name, average_rating  from agentperformance where average_rating < 3.5 limit 5;
+OK
+agent_name	average_rating
+Nandani Gupta	3
+Swati 	3
+Manjunatha A	3
+Hitesh Choudhary	0
+Sanjeevan 	0
+Time taken: 0.042 seconds, Fetched: 5 row(s)
+
 10. Agent name who have rating more than 4.5 
+Ans:
+hive> select agent_name, average_rating  from agentperformance where average_rating > 4.5 limit 5;
+OK
+agent_name	average_rating
+Saikumarreddy N	5
+Sanjeev Kumar	5
+Shivananda Sonwane	5
+Muskan Garg	5
+Chaitra K Hiremath	5
+Time taken: 0.08 seconds, Fetched: 5 row(s)
+
 11. How many feedback agents have received more than 4.5 average
+Ans:
+hive> select count(average_rating) as Count_avg_rating_GT_4pt5  from agentperformance where average_rating > 4.5;
+count_avg_rating_gt_4pt5
+71
+Time taken: 30.986 seconds, Fetched: 1 row(s)
+
 12. average weekly response time for each agent 
+Ans:
+hive> select agent_name, avg(cast(average_response_time as timestamp)) as Avg_weekly_response_time  from agentperformance group by agent_name limit 5;
+
+
 13. average weekly resolution time for each agents 
 14. Find the number of chat on which they have received a feedback 
 15. Total contribution hour for each and every agents weekly basis 
