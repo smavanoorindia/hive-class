@@ -103,8 +103,7 @@ Trucks and Buses	10777
 Planes	10727
 Ships	8127
 Trains	2712
-
-c. Calculate the total sales for each quarter
+select productline, qtyordered from (select productline, sum(quantityordered) as qtyordered from sales_order_data_orc group by productline)  max_sales_productline where qtyordered in (select max(s2.qtyordered); c. Calculate the total sales for each quarter
 Ans:
 select year_id, qtr_id, sum(sales) as total_sales from sales_order_data_orc group by year_id, qtr_id order by year_id, qtr_id; 
 
