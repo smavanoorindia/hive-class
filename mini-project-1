@@ -121,11 +121,29 @@ Time taken: 30.986 seconds, Fetched: 1 row(s)
 
 12. average weekly response time for each agent 
 Ans:
-hive> select agent_name, avg(cast(average_response_time as timestamp)) as Avg_weekly_response_time  from agentperformance group by agent_name limit 5;
-
+hive> 
+select agent_name, average_response_time  from agentperformance limit 5;
+Prerna Singh	0:00:38
+Nandani Gupta	0:01:15
+Ameya Jain	0:00:30
+Mahesh Sarade	0:01:04
+Swati 	0:01:11
+Time taken: 0.049 seconds, Fetched: 5 row(s)
 
 13. average weekly resolution time for each agents 
+Ans: hive> select agent_name, average_resolution_time  from agentperformance limit 5;
+OK
+agent_name	average_resolution_time
+Prerna Singh	0:04:20
+Nandani Gupta	0:28:25
+Ameya Jain	0:11:36
+Mahesh Sarade	0:15:46
+Swati 	0:16:33
+Time taken: 0.051 seconds, Fetched: 5 row(s)
+
 14. Find the number of chat on which they have received a feedback 
+Ans: 
+
 15. Total contribution hour for each and every agents weekly basis 
 16. Perform inner join, left join and right join based on the agent column and after joining the table export that data into your local system.
 17. Perform partitioning on top of the agent column and then on top of that perform bucketing for each partitioning.
